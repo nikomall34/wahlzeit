@@ -15,7 +15,7 @@ public class CoordinateTest {
         Coordinate c = new Coordinate(4, 5, 7);
         assertEquals(c.getX(), 4, 0);
 
-        c.setX(8);
-        assertEquals(c.getX(), 8, 0);
+        c.setX(9);
+        assertEquals(c.getX(), 9, 0);
     }
 }
