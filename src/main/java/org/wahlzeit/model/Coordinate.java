@@ -41,4 +41,16 @@ public class Coordinate {
     public void setZ(double z){
         this.z = z;
     }
+
+    public double getDistance(Coordinate c){
+        double partX = Math.pow((c.x - this.x), 2);
+        double partY = Math.pow((c.y - this.y), 2);
+        double partZ = Math.pow((c.z - this.z), 2);
+
+        return Math.sqrt(partX + partY + partZ);
+    }
+
+    public boolean isEqual(Coordinate c){
+        return this.x == c.x && this.y == c.y && this.z == c.z;
+    }
 }   

@@ -56,6 +56,16 @@ CREATE TABLE globals (
 	last_session_id integer
 );
 
+CREATE TABLE location_ (
+	coordinate text
+);
+
+CREATE TABLE coordinate (
+	x integer,
+	y integer,
+	z integer
+);
+
 INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session_id)
 	VALUES (0, 1, 0, 0, 0);
 
