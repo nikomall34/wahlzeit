@@ -3,7 +3,28 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [  
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch RunScript",
+            "request": "launch",
+            "mainClass": "org.wahlzeit.tools.RunScript",
+            "projectName": "wahlzeit"
+        },
+        {
+            "type": "java",
+            "name": "Launch CreateUser",
+            "request": "launch",
+            "mainClass": "org.wahlzeit.tools.CreateUser",
+            "projectName": "wahlzeit"
+        },
+        {
+            "type": "java",
+            "name": "Launch SetUpFlowers",
+            "request": "launch",
+            "mainClass": "org.wahlzeit.tools.SetUpFlowers",
+            "projectName": "wahlzeit"
+        },
         {
             "type": "java",
             "name": "Debug Local App",
@@ -11,6 +32,6 @@
             "request": "attach",
             "hostName": "localhost",
             "port": 5005
-        },
+        }
     ]
 }

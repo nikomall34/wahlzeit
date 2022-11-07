@@ -86,7 +86,10 @@ public abstract class ModelMain extends AbstractMain {
 		};
 
 		File[] photoFiles = photoDirFile.listFiles(photoFileFilter);
+		SysLog.logSysInfo("\nHHHHHHHHHHHHHAAAAAAAAAhahdasjsdhkahfksdhfdlashflk\n");
 		for (int i = 0; i < photoFiles.length; i++) {
+			System.out.println(photoFiles[i].getName());
+			SysLog.logSysInfo(photoFiles[i].getPath());
 			Photo newPhoto = photoManager.createPhoto(photoFiles[i]);
 			user.addPhoto(newPhoto);
 		}

@@ -61,9 +61,9 @@ CREATE TABLE location_ (
 );
 
 CREATE TABLE coordinate (
-	x integer,
-	y integer,
-	z integer
+	x float,
+	y float,
+	z float
 );
 
 INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session_id)

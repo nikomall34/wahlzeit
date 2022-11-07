@@ -7,6 +7,7 @@ package org.wahlzeit.tools;
 
 import org.wahlzeit.utils.*;
 import org.wahlzeit.main.*;
+import org.wahlzeit.services.SysLog;
 
 /**
  * A script to create users.
@@ -23,10 +24,10 @@ public class CreateUser extends ScriptMain {
 	/**
 	 * 
 	 */
-	protected String userName = "testuser";
-	protected String password = "testuser";
-	protected String emailAddress = "info@wahlzeit.org";
-	protected String photoDir = "config/photos";
+	protected String userName = "testuser92";
+	protected String password = "testuser92";
+	protected String emailAddress = "info92@wahlzeit.org";
+	protected String photoDir = "/home/niko/Desktop/ADAP/wahlzeit/src/main/webapp/config/flowers";
 	
 	/**
 	 * 
@@ -60,6 +61,7 @@ public class CreateUser extends ScriptMain {
 	 * 
 	 */
 	protected void execute() throws Exception {
+		SysLog.logSysInfo("in execute HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		createUser(userName, password, emailAddress, photoDir);
 	}
 	
