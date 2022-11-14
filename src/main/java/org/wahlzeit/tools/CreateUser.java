@@ -27,7 +27,7 @@ public class CreateUser extends ScriptMain {
 	protected String userName = "testuser92";
 	protected String password = "testuser92";
 	protected String emailAddress = "info92@wahlzeit.org";
-	protected String photoDir = "/home/niko/Desktop/ADAP/wahlzeit/src/main/webapp/config/flowers";
+	protected String photoDir = "config/flowers";
 	
 	/**
 	 * 

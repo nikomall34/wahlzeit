@@ -11,7 +11,7 @@ public class Location extends DataObject{
     /**
 	 * 
 	 */
-    public Coordinate coordinate;
+    public CartesianCoordinate coordinate;
 
     @Override
     public String getIdAsString() {
