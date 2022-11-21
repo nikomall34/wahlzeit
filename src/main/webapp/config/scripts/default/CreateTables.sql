@@ -29,7 +29,8 @@ CREATE TABLE photos (
 	status integer,
 	praise_sum integer,
 	no_votes integer,
-	creation_time bigint
+	creation_time bigint,
+	location_id integer
 );
 
 CREATE TABLE tags (
@@ -57,13 +58,13 @@ CREATE TABLE globals (
 );
 
 CREATE TABLE location_ (
-	coordinate text
-);
-
-CREATE TABLE coordinate (
+	id integer PRIMARY KEY,
 	x float,
 	y float,
-	z float
+	z float,
+	latitude float,
+	longitude float,
+	radius float
 );
 
 INSERT INTO globals (id, last_user_id, last_photo_id, last_case_id, last_session_id)

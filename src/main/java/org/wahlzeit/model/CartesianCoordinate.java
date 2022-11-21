@@ -1,67 +1,61 @@
 package org.wahlzeit.model;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import org.wahlzeit.services.DataObject;
-
-public class CartesianCoordinate extends DataObject implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
     /**
-	 * 
-	 */
+     * 
+     */
     private double x;
     private double y;
     private double z;
 
     /**
-	 * 
-	 */
-    public CartesianCoordinate(double x, double y, double z){
+     * 
+     */
+    public CartesianCoordinate(double x, double y, double z) {
+
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     /**
-	 * 
-	 */
-    public double getX(){
+     * 
+     */
+    public double getX() {
         return this.x;
     }
 
     /**
-	 * 
-	 */
-    public double getY(){
+     * 
+     */
+    public double getY() {
         return this.y;
     }
 
     /**
-	 * 
-	 */
-    public double getZ(){
+     * 
+     */
+    public double getZ() {
         return this.z;
     }
 
     /**
-	 * 
-	 */
-    public void setX(double x){
+     * 
+     */
+    public void setX(double x) {
         this.x = x;
     }
 
-
-    public void setY(double y){
+    public void setY(double y) {
         this.y = y;
     }
 
-
-    public void setZ(double z){
+    public void setZ(double z) {
         this.z = z;
     }
 
-    public double getDistance(CartesianCoordinate c){
+    public double getDistance(CartesianCoordinate c) {
         double partX = Math.pow((c.x - this.x), 2);
         double partY = Math.pow((c.y - this.y), 2);
         double partZ = Math.pow((c.z - this.z), 2);
@@ -70,49 +64,17 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
     }
 
     @Override
-    public String getIdAsString() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void readFrom(ResultSet rset) throws SQLException {
-        x = rset.getDouble("x");
-        y = rset.getDouble("y");
-        z = rset.getDouble("z");
-        
-    }
-
-    @Override
-    public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateDouble("x", x);
-        rset.updateDouble("y", y);
-        rset.updateDouble("z", z);
-
-        
-    }
-
-    @Override
-    public void writeId(PreparedStatement stmt, int pos) throws SQLException {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
     }
 
-    @Override
-    public double getCartesianDistance(Coordinate c) {
-        return this.getDistance(c.asCartesianCoordinate());
-    }
 
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double radius = Math.sqrt((x * x) + (y * y) + (z * z));
-        double theta = Math.acos(z / radius);
-        double phi = Math.atan2(y, x);
-        return new SphericCoordinate(phi, theta, radius);
+        double latitude = Math.acos(z / radius);
+        double longitude = Math.atan2(y, x);
+        return new SphericCoordinate(latitude, longitude, radius);
     }
 
     @Override
@@ -125,13 +87,12 @@ public class CartesianCoordinate extends DataObject implements Coordinate {
 
     @Override
     public boolean isEqual(Coordinate c) {
-        if (c instanceof CartesianCoordinate){
-            CartesianCoordinate coordinate = c.asCartesianCoordinate();
-            
-            return this.x == coordinate.getX() && this.y == coordinate.getY() 
-                && this.z == coordinate.getZ();
-        } 
-        return false;
+        CartesianCoordinate coordinate = c.asCartesianCoordinate();
+        double dx = Math.abs(this.x - coordinate.getX());
+        double dy = Math.abs(this.y - coordinate.getY());
+        double dz = Math.abs(this.z - coordinate.getZ());
+
+        return dx < TOLERANCE && dy < TOLERANCE && dz < TOLERANCE;
     }
 
-}   
+}
