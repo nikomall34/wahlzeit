@@ -44,18 +44,25 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     public void setX(double x) {
+        assertClassInvariants();
         this.x = x;
+        assertClassInvariants();
     }
 
     public void setY(double y) {
+        assertClassInvariants();
         this.y = y;
+        assertClassInvariants();
     }
 
     public void setZ(double z) {
+        assertClassInvariants();
         this.z = z;
+        assertClassInvariants();
     }
 
     public double getDistance(CartesianCoordinate c) {
+        
         double partX = Math.pow((c.x - this.x), 2);
         double partY = Math.pow((c.y - this.y), 2);
         double partZ = Math.pow((c.z - this.z), 2);
@@ -65,6 +72,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertClassInvariants();
         return this;
     }
 
@@ -74,25 +82,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double radius = Math.sqrt((x * x) + (y * y) + (z * z));
         double latitude = Math.acos(z / radius);
         double longitude = Math.atan2(y, x);
-        return new SphericCoordinate(latitude, longitude, radius);
+        SphericCoordinate erg = new SphericCoordinate(latitude, longitude, radius);
+        erg.assertClassInvariants();
+        return erg;
     }
 
-    @Override
-    public double getCentralAngle(Coordinate c) {
-        SphericCoordinate p1 = this.asSphericCoordinate();
-        SphericCoordinate p2 = c.asSphericCoordinate();
-
-        return p1.getCentralAngle(p2);
-    }
-
-    @Override
-    public boolean isEqual(Coordinate c) {
-        CartesianCoordinate coordinate = c.asCartesianCoordinate();
-        double dx = Math.abs(this.x - coordinate.getX());
-        double dy = Math.abs(this.y - coordinate.getY());
-        double dz = Math.abs(this.z - coordinate.getZ());
-
-        return dx < TOLERANCE && dy < TOLERANCE && dz < TOLERANCE;
-    }
 
 }

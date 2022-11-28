@@ -15,15 +15,21 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     public void setLatitude(double latitude) {
+        assertClassInvariants();
         this.latitude = latitude;
+        assertClassInvariants();
     }
 
     public void setLongitude(double longitude) {
+        assertClassInvariants();
         this.longitude = longitude;
+        assertClassInvariants();
     }
 
     public void setRadius(double radius) {
+        assertClassInvariants();
         this.radius = radius;
+        assertClassInvariants();
     }
 
     public double getLatitude() {
@@ -46,6 +52,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertClassInvariants();
         double x = radius * Math.sin(latitude) * Math.cos(longitude);
         double y = radius * Math.sin(latitude) * Math.sin(longitude);
         double z = radius * Math.cos(latitude);
@@ -57,41 +64,8 @@ public class SphericCoordinate extends AbstractCoordinate {
         return this;
     }
 
-    /* (non-Javadoc)
-     * @see org.wahlzeit.model.Coordinate#getCentralAngle(org.wahlzeit.model.Coordinate)
-     */
-    @Override
-    public double getCentralAngle(Coordinate c) {
-        SphericCoordinate p1 = this.asSphericCoordinate();
-        SphericCoordinate p2 = c.asSphericCoordinate();
+    
 
-        if (p1.getRadius() == p2.getRadius()) {
-            double longitude1 = p1.getLongitude();
-            double latitude1 = (Math.PI / 2) - p1.getLatitude();
-
-            double longitude2 = p2.getLongitude();
-            double latitude2 = (Math.PI / 2) - p2.getLatitude();
-
-            double deltaX = Math.cos(latitude2) * Math.cos(longitude2) -
-                    Math.cos(latitude1) * Math.cos(longitude1);
-            double deltaY = Math.cos(latitude2) * Math.sin(longitude2) -
-                    Math.cos(latitude1) * Math.sin(longitude1);
-            double deltaZ = Math.sin(latitude2) - Math.sin(latitude1);
-
-            double C = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-
-            return 2 * Math.asin(C / 2);
-        }
-        throw new ArithmeticException("in getCentralAngle both radii are not equal");
-    }
-
-    @Override
-    public boolean isEqual(Coordinate c) {
-        SphericCoordinate coordinate = c.asSphericCoordinate();
-        double dLongitude = Math.abs(this.longitude - coordinate.getLongitude());
-        double dLatitude = Math.abs(this.latitude - coordinate.getLatitude());
-        double dRadius = Math.abs(this.radius - coordinate.getRadius());
-        return dLongitude < TOLERANCE && dLatitude < TOLERANCE && dRadius < TOLERANCE;
-    }
+    
 
 }
