@@ -40,7 +40,7 @@ public class CoordinateTest {
 
         SphericCoordinate s1 = new SphericCoordinate(2, 3, 5);
         SphericCoordinate s2 = new SphericCoordinate(2, 3, 5);
-        SphericCoordinate s3 = new SphericCoordinate(10, 23, 37);
+        SphericCoordinate s3 = new SphericCoordinate(1, 2, 37);
         AbstractCoordinate s4 = new SphericCoordinate(0.59569430583359, 1.1606689862534, 44.698993277254);
         
 
@@ -93,4 +93,23 @@ public class CoordinateTest {
 
     }
 
+    @Test
+    public void assertTest(){
+        try{
+            SphericCoordinate t1 = new SphericCoordinate(100, 2, 1);
+            t1.setRadius(0);
+            assertFalse(false);
+        }
+        catch(AssertionError a){
+            assertTrue(true);
+        }
+        try{
+            SphericCoordinate t2 = new SphericCoordinate(100, 2, -1);
+            t2.setRadius(0);
+            assertFalse(false);
+        }
+        catch(AssertionError a){
+            assertTrue(true);
+        }
+    }
 }

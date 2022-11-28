@@ -73,7 +73,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     protected void assertClassInvariants() {
         SphericCoordinate s = this.asSphericCoordinate();
-        assert (s.getLongitude() >= -1 * Math.PI) && (s.getLongitude() <= -1 * Math.PI);
+        System.out.println(s.getLongitude());
+        assert (s.getLongitude() >= -1 * Math.PI) && (s.getLongitude() <= Math.PI);
         assert s.getLatitude() >= 0 && s.getLatitude() <= Math.PI;
         assert s.getRadius() >= 0;
     }
