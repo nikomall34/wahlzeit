@@ -8,9 +8,11 @@ public abstract class AbstractCoordinate implements Coordinate {
     public double getCartesianDistance(Coordinate c) {
         assertClassInvariants();
         assertIsNonNullArgument(c);
+        ((AbstractCoordinate) c).assertClassInvariants();
 
         double erg = this.asCartesianCoordinate().getDistance(c.asCartesianCoordinate());
         
+        ((AbstractCoordinate) c).assertClassInvariants();
         assertClassInvariants();
         return erg;
     }
@@ -34,6 +36,7 @@ public abstract class AbstractCoordinate implements Coordinate {
     public double getCentralAngle(Coordinate c) {
         assertClassInvariants();
         assertIsNonNullArgument(c);
+        ((AbstractCoordinate) c).assertClassInvariants();
 
         SphericCoordinate p1 = this.asSphericCoordinate();
         SphericCoordinate p2 = c.asSphericCoordinate();
@@ -54,6 +57,7 @@ public abstract class AbstractCoordinate implements Coordinate {
             double C = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
 
             double erg = 2 * Math.asin(C / 2);
+            ((AbstractCoordinate) c).assertClassInvariants();
             assertClassInvariants();
             return erg;
         }
@@ -64,19 +68,25 @@ public abstract class AbstractCoordinate implements Coordinate {
     public boolean isEqual(Coordinate c) {
         assertClassInvariants();
         assertIsNonNullArgument(c);
+        ((AbstractCoordinate) c).assertClassInvariants();
 
         boolean erg = this.getCartesianDistance(c) < TOLERANCE;
 
+        ((AbstractCoordinate) c).assertClassInvariants();
         assertClassInvariants();
         return erg;
     }
 
     protected void assertClassInvariants() {
         SphericCoordinate s = this.asSphericCoordinate();
-        System.out.println(s.getLongitude());
-        assert (s.getLongitude() >= -1 * Math.PI) && (s.getLongitude() <= Math.PI);
-        assert s.getLatitude() >= 0 && s.getLatitude() <= Math.PI;
-        assert s.getRadius() >= 0;
+        double longitude = s.longitude;
+        double latitude = s.latitude;
+        double radius = s.radius;
+
+        assert !Double.isNaN(radius) && !Double.isNaN(longitude) && !Double.isNaN(latitude);
+        assert (longitude >= -1 * Math.PI) && (longitude <= Math.PI);
+        assert latitude >= 0 && latitude <= Math.PI;
+        assert radius >= 0;
     }
 
     protected void assertIsNonNullArgument(Coordinate c) {

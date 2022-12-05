@@ -23,6 +23,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     public double getX() {
+        assertClassInvariants();
         return this.x;
     }
 
@@ -30,6 +31,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     public double getY() {
+        assertClassInvariants();
         return this.y;
     }
 
@@ -37,6 +39,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
      * 
      */
     public double getZ() {
+        assertClassInvariants();
         return this.z;
     }
 

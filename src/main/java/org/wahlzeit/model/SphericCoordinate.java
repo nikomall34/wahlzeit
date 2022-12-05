@@ -3,9 +3,9 @@ package org.wahlzeit.model;
 
 public class SphericCoordinate extends AbstractCoordinate {
 
-    private double latitude;
-    private double longitude;
-    private double radius;
+    protected double latitude;
+    protected double longitude;
+    protected double radius;
 
     public SphericCoordinate(double latitude, double longitude, double radius) {
         
@@ -33,6 +33,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     public double getLatitude() {
+        assertClassInvariants();
         return this.latitude;
     }
 
@@ -40,6 +41,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      */
     public double getLongitude() {
+        assertClassInvariants();
         return this.longitude;
     }
 
@@ -47,6 +49,7 @@ public class SphericCoordinate extends AbstractCoordinate {
      * 
      */
     public double getRadius() {
+        assertClassInvariants();
         return this.radius;
     }
 
@@ -63,9 +66,5 @@ public class SphericCoordinate extends AbstractCoordinate {
     public SphericCoordinate asSphericCoordinate() {
         return this;
     }
-
-    
-
-    
 
 }
