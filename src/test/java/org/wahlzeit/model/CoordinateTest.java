@@ -16,8 +16,8 @@ public class CoordinateTest {
         CartesianCoordinate c = new CartesianCoordinate(4, 5, 7);
         assertEquals(c.getX(), 4, 0);
 
-        c.setX(9);
-        assertEquals(c.getX(), 9, 0);
+        CartesianCoordinate newc = c.setX(9);
+        assertEquals(newc.getX(), 9, 0);
     }
 
     @Test
@@ -96,17 +96,17 @@ public class CoordinateTest {
     @Test
     public void assertTest(){
         try{
-            SphericCoordinate t1 = new SphericCoordinate(100, 2, 1);
-            t1.setRadius(0);
-            assertFalse(false);
+            SphericCoordinate t1 = new SphericCoordinate(1, 2, 1);
+            t1.setRadius(1);
+            assertTrue(true);
         }
         catch(AssertionError a){
-            assertTrue(true);
+            assertTrue(false);
         }
         try{
             SphericCoordinate t2 = new SphericCoordinate(100, 2, -1);
             t2.setRadius(0);
-            assertFalse(false);
+            assertTrue(false);
         }
         catch(AssertionError a){
             assertTrue(true);

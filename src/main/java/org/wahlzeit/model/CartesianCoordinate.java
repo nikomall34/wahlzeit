@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import java.util.List;
 
 public class CartesianCoordinate extends AbstractCoordinate {
     /**
@@ -17,6 +18,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         this.x = x;
         this.y = y;
         this.z = z;
+
     }
 
     /**
@@ -46,22 +48,28 @@ public class CartesianCoordinate extends AbstractCoordinate {
     /**
      * 
      */
-    public void setX(double x) {
+    public CartesianCoordinate setX(double x) {
         assertClassInvariants();
-        this.x = x;
+        CartesianCoordinate res = getCartesianCoordinate(x, this.y, this.z);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
-    public void setY(double y) {
+    public CartesianCoordinate setY(double y) {
         assertClassInvariants();
-        this.y = y;
+        CartesianCoordinate res = getCartesianCoordinate(this.x, y, this.z);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
-    public void setZ(double z) {
+    public CartesianCoordinate setZ(double z) {
         assertClassInvariants();
-        this.z = z;
+        CartesianCoordinate res = getCartesianCoordinate(this.x, this.y, z);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
     public double getDistance(CartesianCoordinate c) {

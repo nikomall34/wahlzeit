@@ -14,22 +14,28 @@ public class SphericCoordinate extends AbstractCoordinate {
         this.radius = radius;
     }
 
-    public void setLatitude(double latitude) {
+    public SphericCoordinate setLatitude(double latitude) {
         assertClassInvariants();
-        this.latitude = latitude;
+        SphericCoordinate res = getSphericCoordinate(latitude, this.longitude, this.radius);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
-    public void setLongitude(double longitude) {
+    public SphericCoordinate setLongitude(double longitude) {
         assertClassInvariants();
-        this.longitude = longitude;
+        SphericCoordinate res = getSphericCoordinate(this.latitude, longitude, this.radius);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
-    public void setRadius(double radius) {
+    public SphericCoordinate setRadius(double radius) {
         assertClassInvariants();
-        this.radius = radius;
+        SphericCoordinate res = getSphericCoordinate(this.latitude, this.longitude, radius);
+        res.assertClassInvariants();
         assertClassInvariants();
+        return res;
     }
 
     public double getLatitude() {
@@ -59,7 +65,9 @@ public class SphericCoordinate extends AbstractCoordinate {
         double x = radius * Math.sin(latitude) * Math.cos(longitude);
         double y = radius * Math.sin(latitude) * Math.sin(longitude);
         double z = radius * Math.cos(latitude);
-        return new CartesianCoordinate(x, y, z);
+        CartesianCoordinate erg = new CartesianCoordinate(x, y, z);
+        erg.assertClassInvariants();
+        return erg;
     }
 
     @Override

@@ -1,8 +1,13 @@
 package org.wahlzeit.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class AbstractCoordinate implements Coordinate {
 
     protected static final double TOLERANCE = 0.000001;
+    protected static List<CartesianCoordinate> allCartesianCoordinates = new LinkedList<>();
+    protected static List<SphericCoordinate> allSphericCoordinates = new LinkedList<>();
 
     @Override
     public double getCartesianDistance(Coordinate c) {
@@ -93,4 +98,22 @@ public abstract class AbstractCoordinate implements Coordinate {
         assert c != null;
     }
 
+    //TODO maybe add class Invariants
+    protected CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
+        for(CartesianCoordinate c : allCartesianCoordinates){
+            if(c.getX() == x && c.getY() == y && c.getZ() == z){
+                return c;
+            }
+        }
+        return new CartesianCoordinate(x, y, z);
+    }
+
+    protected SphericCoordinate getSphericCoordinate(double latitude, double longitude, double radius){
+        for (SphericCoordinate s : allSphericCoordinates){
+            if(s.getLatitude() == latitude && s.getLongitude() == longitude && s.getRadius() == radius){
+                return s;
+            }
+        }
+        return new SphericCoordinate(latitude, longitude, radius);
+    }
 }
