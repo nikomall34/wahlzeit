@@ -12,13 +12,19 @@ import org.wahlzeit.services.*;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@PatternInstance(patternName = "Factory", participants = {
+		"PhotoFactory", "FlowerPhotoFactory"
+})
 public class PhotoFactory {
-	
+
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
+	@PatternInstance(patternName = "Singleton", participants = {
+			"PhotoFactory"
+	})
 	private static PhotoFactory instance = null;
-	
+
 	/**
 	 * Public singleton access method.
 	 */
@@ -27,10 +33,10 @@ public class PhotoFactory {
 			SysLog.logSysInfo("setting generic PhotoFactory");
 			setInstance(new FlowerPhotoFactory());
 		}
-		
+
 		return instance;
 	}
-	
+
 	/**
 	 * Method to set the singleton instance of PhotoFactory.
 	 */
@@ -38,17 +44,17 @@ public class PhotoFactory {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initialize PhotoFactory twice");
 		}
-		
+
 		instance = photoFactory;
 	}
-	
+
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
 	public static void initialize() {
 		getInstance(); // drops result due to getInstance() side-effects
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -62,28 +68,28 @@ public class PhotoFactory {
 	public Photo createPhoto() {
 		return new FlowerPhoto();
 	}
-	
+
 	/**
 	 * 
 	 */
 	public Photo createPhoto(PhotoId id) {
 		return new FlowerPhoto(id);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public Photo createPhoto(ResultSet rs) throws SQLException {
 		return new FlowerPhoto(rs);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public PhotoFilter createPhotoFilter() {
 		return new PhotoFilter();
 	}
-	
+
 	/**
 	 * 
 	 */

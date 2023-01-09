@@ -23,6 +23,10 @@ public class PhotoCaseManager extends ObjectManager {
 	/**
 	 * 
 	 */
+	@PatternInstance(
+		patternName = "Singleton",
+		participants = {"PhotoCaseManager"}
+	)
 	protected static final PhotoCaseManager instance = new PhotoCaseManager();
 
 	/**
