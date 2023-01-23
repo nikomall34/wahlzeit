@@ -65,7 +65,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         double x = radius * Math.sin(latitude) * Math.cos(longitude);
         double y = radius * Math.sin(latitude) * Math.sin(longitude);
         double z = radius * Math.cos(latitude);
-        CartesianCoordinate erg = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate erg = getCartesianCoordinate(x, y, z);
         erg.assertClassInvariants();
         return erg;
     }

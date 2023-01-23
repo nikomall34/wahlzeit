@@ -1,13 +1,14 @@
 package org.wahlzeit.model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Objects;
+
 
 public abstract class AbstractCoordinate implements Coordinate {
 
     protected static final double TOLERANCE = 0.000001;
-    protected static List<CartesianCoordinate> allCartesianCoordinates = new LinkedList<>();
-    protected static List<SphericCoordinate> allSphericCoordinates = new LinkedList<>();
+    protected static HashMap<Integer, CartesianCoordinate> allCartesianCoordinates = new HashMap<>();
+    protected static HashMap<Integer, SphericCoordinate> allSphericCoordinates = new HashMap<>();
 
     @Override
     public double getCartesianDistance(Coordinate c) {
@@ -87,33 +88,38 @@ public abstract class AbstractCoordinate implements Coordinate {
         double longitude = s.longitude;
         double latitude = s.latitude;
         double radius = s.radius;
-
-        assert !Double.isNaN(radius) && !Double.isNaN(longitude) && !Double.isNaN(latitude);
-        assert (longitude >= -1 * Math.PI) && (longitude <= Math.PI);
-        assert latitude >= 0 && latitude <= Math.PI;
-        assert radius >= 0;
+        
+        if(Double.isNaN(radius) || Double.isNaN(longitude) || Double.isNaN(latitude)){
+            throw new IllegalStateException("One or more attributes are NaN");
+        }
+        if(longitude < -1 * Math.PI || longitude > Math.PI || latitude < 0 || latitude > Math.PI || radius < 0){
+            throw new IllegalStateException("One or more attributes are out of range");
+        }
     }
 
     protected void assertIsNonNullArgument(Coordinate c) {
-        assert c != null;
+        if(c == null){
+            throw new IllegalStateException("argument is null");
+        }
     }
 
-    //TODO maybe add class Invariants
     protected CartesianCoordinate getCartesianCoordinate(double x, double y, double z){
-        for(CartesianCoordinate c : allCartesianCoordinates){
-            if(c.getX() == x && c.getY() == y && c.getZ() == z){
-                return c;
-            }
+        int hash = Objects.hash(x, y, z);
+        CartesianCoordinate erg = allCartesianCoordinates.get(hash);
+        if(erg == null){
+            erg = new CartesianCoordinate(x, y, z);
+            allCartesianCoordinates.put(hash, erg);
         }
-        return new CartesianCoordinate(x, y, z);
+        return erg;
     }
 
     protected SphericCoordinate getSphericCoordinate(double latitude, double longitude, double radius){
-        for (SphericCoordinate s : allSphericCoordinates){
-            if(s.getLatitude() == latitude && s.getLongitude() == longitude && s.getRadius() == radius){
-                return s;
-            }
+        int hash = Objects.hash(latitude, longitude, radius);
+        SphericCoordinate erg = allSphericCoordinates.get(hash);
+        if(erg == null){
+            erg = new SphericCoordinate(latitude, longitude, radius);
+            allSphericCoordinates.put(hash, erg);
         }
-        return new SphericCoordinate(latitude, longitude, radius);
+        return erg;
     }
 }

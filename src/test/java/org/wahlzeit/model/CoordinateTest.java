@@ -103,12 +103,43 @@ public class CoordinateTest {
         catch(AssertionError a){
             assertTrue(false);
         }
+        catch(Exception a){
+            assertTrue(false);
+        }
+
         try{
             SphericCoordinate t2 = new SphericCoordinate(100, 2, -1);
             t2.setRadius(0);
             assertTrue(false);
         }
         catch(AssertionError a){
+            assertTrue(true);
+        }
+        catch(Exception a){
+            assertTrue(true);
+        }
+
+        try{
+            CartesianCoordinate c = new CartesianCoordinate(Double.NaN, Double.NaN, Double.NaN);
+            c.setX(0);
+            assertTrue(false);
+        }
+        catch(AssertionError a){
+            assertTrue(true);
+        }
+        catch(Exception a){
+            assertTrue(true);
+        }
+
+        try{
+            SphericCoordinate t2 = new SphericCoordinate(100, 2, -1);
+            t2.setRadius(0);
+            assertTrue(false);
+        }
+        catch(AssertionError a){
+            assertTrue(true);
+        }
+        catch(Exception a){
             assertTrue(true);
         }
     }

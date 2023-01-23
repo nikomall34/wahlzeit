@@ -1,6 +1,5 @@
 package org.wahlzeit.model;
 
-import java.util.List;
 
 public class CartesianCoordinate extends AbstractCoordinate {
     /**
@@ -93,7 +92,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double radius = Math.sqrt((x * x) + (y * y) + (z * z));
         double latitude = Math.acos(z / radius);
         double longitude = Math.atan2(y, x);
-        SphericCoordinate erg = new SphericCoordinate(latitude, longitude, radius);
+        SphericCoordinate erg = getSphericCoordinate(latitude, longitude, radius);
         erg.assertClassInvariants();
         return erg;
     }
